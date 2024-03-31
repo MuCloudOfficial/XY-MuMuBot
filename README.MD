@@ -13,12 +13,11 @@
 
 ### 当前开发的功能
 
-<form>
-    <input type="checkbox" disabled="disabled" checked="checked"/> MC 服务器 Batch 脚本自动生成器 <br/>
-    <input type="checkbox" disabled="disabled"/> 进服自定义消息提示 <br/>
-    <input type="checkbox" disabled="disabled"/> MC 模组搜索 <br/>
-    <input type="checkbox" disabled="disabled"/> 服务器资源监控器及服务器指令在群内的代理执行器 <br/>
-</form>
+<input type="checkbox" disabled checked /> MC 服务器 Batch 脚本自动生成器 <br/>
+<input type="checkbox" disabled /> 进服自定义消息提示 <br/>
+<input type="checkbox" disabled /> MC 模组搜索 <br/>
+<input type="checkbox" disabled /> 服务器资源监控器及服务器指令在群内的代理执行器 <br/>
+
 
 ---
 > MADE IN SAKURA OCEAN | "纵使深情，难换樱花。"
