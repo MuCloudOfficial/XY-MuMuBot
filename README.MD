@@ -19,5 +19,6 @@
 * [ ] 服务器资源监控器及服务器指令在群内的代理执行器
 
 ---
-> MADE IN SAKURA OCEAN | "纵使深情，难换樱花。"
+> MADE IN SAKURA OCEAN  
+> "纵使深情，难换樱花。"  
 
