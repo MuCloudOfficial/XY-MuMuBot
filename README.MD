@@ -1,8 +1,4 @@
-### XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件
-
----
-
-**番外篇 | 第一弹** 
+### 番外篇 | 第一弹 · XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件
 
 ![Static Badge](https://img.shields.io/badge/Kotlin-1.9.22-gray?style=flat&labelColor=purple)
 ![Static Badge](https://img.shields.io/badge/Mirai_Console-2.16.0-gray?style=flat&labelColor=blue)
