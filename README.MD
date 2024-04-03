@@ -1,8 +1,4 @@
-### XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件
-
----
-
-**番外篇 | 第一弹** 
+### 番外篇-第一弹 · __XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件__
 
 ![Static Badge](https://img.shields.io/badge/Kotlin-1.9.22-gray?style=flat&labelColor=purple)
 ![Static Badge](https://img.shields.io/badge/Mirai_Console-2.16.0-gray?style=flat&labelColor=blue)
@@ -17,6 +13,8 @@
 * [ ] 进服自定义消息提示
 * [ ] MC 模组搜索
 * [ ] 服务器资源监控器及服务器指令在群内的代理执行器
+* [ ] 签到
+* [ ] 恶魔轮盘赌小游戏（（（
 
 ---
 > MADE IN SAKURA OCEAN  
