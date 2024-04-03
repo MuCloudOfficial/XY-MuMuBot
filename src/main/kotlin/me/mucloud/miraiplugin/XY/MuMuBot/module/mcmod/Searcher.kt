@@ -1,10 +1,10 @@
-package me.mucloud.miraiplugin.XY.MuMuBot.function.mcmod
+package me.mucloud.miraiplugin.XY.MuMuBot.module.mcmod
 
-import net.mamoe.mirai.contact.User
+import net.mamoe.mirai.contact.UserOrBot
 
 object Searcher {
 
-    private val POOL = emptyMap<User, SearchResult>().toMutableMap()
+    private val POOL = emptyList<SearchThread>().toMutableList()
 
 
     /**
@@ -14,7 +14,7 @@ object Searcher {
      * @since SakuraOcean V1
      * @author Mu_Cloud
      */
-    fun startSearch2MCMODThread(pattern: String){
+    fun createSearchThread(user: UserOrBot, pattern: String, page: Int){
 
     }
 

@@ -1,6 +1,6 @@
-package me.mucloud.miraiplugin.XY.MuMuBot.function.JoinMessage
+package me.mucloud.miraiplugin.XY.MuMuBot.module.JoinMessage
 
-import me.mucloud.miraiplugin.XY.MuMuBot.function.FunctionManager
+import me.mucloud.miraiplugin.XY.MuMuBot.module.ModuleManager
 import net.mamoe.mirai.console.data.AutoSavePluginConfig
 import net.mamoe.mirai.console.data.ValueDescription
 import net.mamoe.mirai.console.data.ValueName
@@ -8,16 +8,24 @@ import net.mamoe.mirai.console.data.value
 import net.mamoe.mirai.event.GlobalEventChannel
 import net.mamoe.mirai.event.Listener
 import net.mamoe.mirai.event.events.MemberJoinEvent
+import net.mamoe.mirai.message.data.At
+import net.mamoe.mirai.message.data.PlainText
+import net.mamoe.mirai.message.data.buildMessageChain
 
 object JoinMessage {
 
     private var Listener: Listener<MemberJoinEvent>? = null
 
     init {
-        if(FunctionManager.JoinMessage){
-            Listener = GlobalEventChannel.subscribeAlways<MemberJoinEvent> {
-                if(ModuleConfig.gs.contains(it.groupId)){
-
+        if(ModuleManager.JoinMessage){
+            Listener = GlobalEventChannel.subscribeAlways<MemberJoinEvent> { event ->
+                if(ModuleConfig.gs.contains(event.groupId)){
+                    group.sendMessage(buildMessageChain {
+                        +At(user)
+                        ModuleConfig.jm.forEach{
+                            +PlainText(it)
+                        }
+                    })
                 }
             }
         }

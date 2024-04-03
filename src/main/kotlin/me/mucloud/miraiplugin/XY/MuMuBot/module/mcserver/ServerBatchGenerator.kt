@@ -1,4 +1,4 @@
-package me.mucloud.miraiplugin.XY.MuMuBot.function.mcserver
+package me.mucloud.miraiplugin.XY.MuMuBot.module.mcserver
 
 import me.mucloud.me.mucloud.miraiplugin.XY.MuMuBot.Main
 import net.mamoe.mirai.console.command.CommandContext

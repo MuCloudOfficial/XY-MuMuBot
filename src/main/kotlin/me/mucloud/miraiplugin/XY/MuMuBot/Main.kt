@@ -1,5 +1,6 @@
 package me.mucloud.me.mucloud.miraiplugin.XY.MuMuBot
 
+import me.mucloud.miraiplugin.XY.MuMuBot.module.ModuleManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.info
@@ -15,7 +16,7 @@ object Main : KotlinPlugin(
 ){
 
     init{
-
+        ModuleManager.init()
     }
 
     override fun onEnable() {
