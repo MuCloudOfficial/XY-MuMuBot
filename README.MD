@@ -1,5 +1,5 @@
-<p align="center" style="font-size: 25px; font-weight: bold"> 番外篇 · 第一弹 </p>
-<p align="center" style="font-size: 20px;"> XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件 </p>
+<h2 align="center"> 番外篇 · 第一弹 </h2>
+<h3 align="center"> XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件 </h3>
 
 <div align="center">
     <img src="https://img.shields.io/badge/Kotlin-1.9.22-gray?style=flat&labelColor=purple" alt=""/>
@@ -7,11 +7,6 @@
     <img src="https://img.shields.io/badge/Release-SakuraOcean_V1-gray?style=flat&labelColor=pink" alt=""/>
     <img src="https://img.shields.io/badge/DEV-0.0.1-gray?style=flat&labelColor=red" alt=""/>
 </div>
-
-
-
-
-
 
 ---
 ### 当前开发的功能
