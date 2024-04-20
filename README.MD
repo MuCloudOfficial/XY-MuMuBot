@@ -1,5 +1,5 @@
-<h2 align="center"> 番外篇 · 第一弹 </h2>
-<p align="center"> XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件 </p>
+<p align="center" style="font-size: 25px; font-weight: bold"> 番外篇 · 第一弹 </p>
+<p align="center" style="font-size: 20px;"> XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件 </p>
 
 <div align="center">
     <img src="https://img.shields.io/badge/Kotlin-1.9.22-gray?style=flat&labelColor=purple" alt=""/>
