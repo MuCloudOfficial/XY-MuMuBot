@@ -1,11 +1,14 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module.mcmod
 
+import me.mucloud.miraiplugin.XY.MuMuBot.module.Module
 import net.mamoe.mirai.contact.UserOrBot
 
-object Searcher {
+object Searcher: Module{
 
     private val POOL = emptyList<SearchThread>().toMutableList()
 
+    override var open: Boolean = false
+    override val info: String = ""
 
     /**
      *
@@ -18,6 +21,8 @@ object Searcher {
 
     }
 
-
+    override fun saveConfig() {
+        TODO("Not yet implemented")
+    }
 
 }

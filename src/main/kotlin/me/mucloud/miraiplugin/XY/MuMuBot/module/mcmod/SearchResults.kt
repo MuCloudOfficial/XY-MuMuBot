@@ -1,7 +1,5 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module.mcmod
 
-import net.mamoe.mirai.message.data.Image
-
 data class ModInfo(
     private val classID: Long,
     private val modState: Pair<String, String>,
@@ -38,7 +36,5 @@ data class ModDownloadLinkInfo(
     private val desc: String,
     private val link: String,
 ){
-
-
 
 }

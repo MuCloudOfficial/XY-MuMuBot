@@ -4,6 +4,7 @@ import me.mucloud.miraiplugin.XY.MuMuBot.module.ModuleManager
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.utils.info
+
 object Main : KotlinPlugin(
     JvmPluginDescription(
         id = "me.mucloud.miraiplugin:xy.mumubot",
@@ -25,8 +26,6 @@ object Main : KotlinPlugin(
             | MADE IN SAKURA OCEAN & BASED ON MIRAI
             | Copyright(c) 2019-2024, Twilight Cloud Pavilion, ALL RIGHTS RESERVED.
         """.trimIndent() }
-
-
     }
 
 }

@@ -1,6 +1,7 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module.mcserver
 
 import me.mucloud.me.mucloud.miraiplugin.XY.MuMuBot.Main
+import me.mucloud.miraiplugin.XY.MuMuBot.module.Module
 import net.mamoe.mirai.console.command.CommandContext
 import net.mamoe.mirai.console.command.SimpleCommand
 import net.mamoe.mirai.console.command.isUser
@@ -9,7 +10,10 @@ import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.message.data.buildMessageChain
 import java.io.File
 
-object ServerBatchGenerator {
+object ServerBatchGenerator: Module{
+
+    override var open: Boolean = false
+    override val info: String = ""
 
     fun gen(java: String, useJDK: Boolean, min: Int, max: Int, core: String, extend: Boolean): String = """
         CHCP 65001
@@ -89,6 +93,9 @@ object ServerBatchGenerator {
 
     }
 
+    override fun saveConfig() {
+        TODO("Not yet implemented")
+    }
 
 
 }

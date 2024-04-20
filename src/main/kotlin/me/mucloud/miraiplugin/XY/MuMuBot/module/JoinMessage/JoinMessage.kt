@@ -1,6 +1,6 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module.JoinMessage
 
-import me.mucloud.miraiplugin.XY.MuMuBot.module.ModuleManager
+import me.mucloud.miraiplugin.XY.MuMuBot.module.Module
 import net.mamoe.mirai.console.data.AutoSavePluginConfig
 import net.mamoe.mirai.console.data.ValueDescription
 import net.mamoe.mirai.console.data.ValueName
@@ -12,31 +12,37 @@ import net.mamoe.mirai.message.data.At
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.message.data.buildMessageChain
 
-object JoinMessage {
+object JoinMessage: Module{
 
     private var Listener: Listener<MemberJoinEvent>? = null
 
-    init {
-        if(ModuleManager.JoinMessage){
-            Listener = GlobalEventChannel.subscribeAlways<MemberJoinEvent> { event ->
-                if(ModuleConfig.gs.contains(event.groupId)){
-                    group.sendMessage(buildMessageChain {
-                        +At(user)
-                        ModuleConfig.jm.forEach{
-                            +PlainText(it)
-                        }
-                    })
-                }
+    override var open: Boolean = false
+    override val info: String = "用于设置进群欢迎消息的模块"
+
+    override fun open() {
+        Listener = GlobalEventChannel.subscribeAlways<MemberJoinEvent> { event ->
+            if(ModuleConfig.gs.contains(event.groupId)){
+                group.sendMessage(buildMessageChain {
+                    +At(user)
+                    ModuleConfig.jm.forEach{
+                        +PlainText(it)
+                    }
+                })
             }
         }
+        super.open()
     }
 
-    fun close(){
+    override fun close(){
         Listener?.complete()
+        super.close()
+    }
+
+    override fun saveConfig() {
+
     }
 
     object ModuleConfig: AutoSavePluginConfig("JoinMessage"){
-
         @ValueName("JoinMessage")
         @ValueDescription("定义新成员进群时的欢迎消息, 允许多行")
         val jm: List<String> by value()
