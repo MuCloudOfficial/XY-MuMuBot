@@ -75,7 +75,9 @@ object ServerBatchGenerator: Module{
 
         /**
          *
-         *  MC 服务器启动代码生成器模块
+         * # | 模块相关 > 功能
+         *
+         * ### MC 服务器启动代码生成器模块
          *
          *  指令：/genbat4mcs (java.exe的完整路径) (是否使用了JDK) (最小内存量/MB) (最大内存量/MB) (核心文件名.jar) (是否需要额外优化，例如自动启停等功能)
          *
@@ -93,9 +95,8 @@ object ServerBatchGenerator: Module{
 
     }
 
-    override fun saveConfig() {
-        TODO("Not yet implemented")
-    }
+    @Deprecated("已废弃 | 该模块无设置项", ReplaceWith("TODO()"))
+    override fun saveConfig() = TODO()
 
 
 }

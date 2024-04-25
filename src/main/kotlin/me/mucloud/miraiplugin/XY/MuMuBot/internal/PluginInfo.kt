@@ -1,11 +1,9 @@
-package me.mucloud.miraiplugin.XY.MuMuBot.module.internal
+package me.mucloud.miraiplugin.XY.MuMuBot.internal
 
 import me.mucloud.me.mucloud.miraiplugin.XY.MuMuBot.Main
-import me.mucloud.miraiplugin.XY.MuMuBot.module.ModuleManager
 import net.mamoe.mirai.console.command.CommandContext
 import net.mamoe.mirai.console.command.CompositeCommand
 import net.mamoe.mirai.console.command.isUser
-import net.mamoe.mirai.contact.User
 import net.mamoe.mirai.message.data.At
 import net.mamoe.mirai.message.data.PlainText
 import net.mamoe.mirai.message.data.buildMessageChain
@@ -13,7 +11,10 @@ import net.mamoe.mirai.message.data.buildMessageChain
 object PluginInfo {
 
     private val info: String = """
-        
+        XY-MuMuBot | Mu_Mu's Bot | 暮暮机器人
+        基于 Mirai Console 制作的 QQ 机器人插件
+        当前版本: ${VersionChecker.getInternalVersion()}
+        项目代码站: https://github.com/MuCloudOfficial/XY-MuMuBot
     """.trimIndent()
 
     object Command: CompositeCommand(
@@ -32,12 +33,7 @@ object PluginInfo {
          *
          */
         @SubCommand("info") suspend fun cmd_info(context: CommandContext){
-            context.sender.sendMessage("""
-                XY-MuMuBot | Mu_Mu's Bot | 暮暮机器人
-                基于 Mirai Console 制作的 QQ 机器人插件
-                当前版本: ${VersionChecker.getInternalVersion()}
-                项目代码站: https://github.com/MuCloudOfficial/XY-MuMuBot
-            """.trimIndent())
+            context.sender.sendMessage(info)
         }
 
         @SubCommand("modules") suspend fun cmd_modules(context: CommandContext){

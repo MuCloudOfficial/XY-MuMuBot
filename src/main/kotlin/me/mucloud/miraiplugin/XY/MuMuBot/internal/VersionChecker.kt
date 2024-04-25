@@ -1,4 +1,4 @@
-package me.mucloud.miraiplugin.XY.MuMuBot.module.internal
+package me.mucloud.miraiplugin.XY.MuMuBot.internal
 
 object VersionChecker {
 

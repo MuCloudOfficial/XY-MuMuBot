@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     implementation("org.jsoup:jsoup:1.17.2")
+    implementation("com.google.code.gson:gson:2.10.1")
 }
 
 mirai {

@@ -17,12 +17,13 @@ object Searcher: Module{
      * @since SakuraOcean V1
      * @author Mu_Cloud
      */
-    fun createSearchThread(user: UserOrBot, pattern: String, page: Int){
+    fun createSearchThread(target: UserOrBot, pattern: String, page: Int){
 
     }
 
-    override fun saveConfig() {
-        TODO("Not yet implemented")
-    }
+    @Deprecated("已废弃 | 该模块无设置项", ReplaceWith("TODO()"))
+    override fun saveConfig() = TODO()
+
+
 
 }

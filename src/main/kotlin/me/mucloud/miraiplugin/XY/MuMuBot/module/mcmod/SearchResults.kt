@@ -4,15 +4,16 @@ data class ModInfo(
     private val classID: Long,
     private val modState: Pair<String, String>,
     private val modName: String,
+    private val platformsAndVersions: Map<String, List<String>>,
     private val engid: String,
     private val authors: List<String>,
-    private val dependencies: List<ModDependenciesInfo>,
+    private val dependencies: List<ModInfo>,
     private val downloadLink: List<ModDownloadLinkInfo>,
 ) {
 
     fun getName(): String = modName
 
-    fun toDependenceModInfo(id: Long){
+    fun toDependenceModInfo(id: Long) {
 
     }
 
@@ -20,14 +21,6 @@ data class ModInfo(
         """
             
         """.trimIndent()
-
-}
-
-data class ModDependenciesInfo(
-    private val version: String,
-    private val dependencies: List<String>,
-    private val useToDepends: List<String>,
-){
 
 }
 
