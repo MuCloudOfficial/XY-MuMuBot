@@ -1,19 +1,15 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.util
 
 import com.google.gson.JsonArray
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import jdk.jfr.Experimental
-import kotlinx.serialization.json.Json
-import org.jetbrains.annotations.TestOnly
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.net.URL
 
 object WebElement2JSONConverter {
 
-    val SearchSource: String = "https://search.mcmod.cn/s?key={key}&filter=0&page={page}"
-    val MODINFOSource: String = "https://www.mcmod.cn/class/{cid}.html"
+    private val SearchSource: String = "https://search.mcmod.cn/s?key={key}&filter=0&page={page}"
+    private val MODINFOSource: String = "https://www.mcmod.cn/class/{cid}.html"
 
     fun getDoc(url: String): Document = Jsoup.parse(URL(url), 2000).also {
             it.charset(Charsets.UTF_8)
@@ -53,6 +49,11 @@ object WebElement2JSONConverter {
         val tag = doc.getElementsByClass("common-class-category")[0]
         val title = doc.getElementsByClass("class-title")[0]
         val info = doc.getElementsByClass("class-info-left")[0].select("ul")[0].children()
+        val dep = if (doc.getElementsByClass("class-relation-list").isEmpty()) {
+            doc.empty()
+        }else{
+            doc.getElementsByClass("class-relation-list")
+        }
 
         // 获取标题及更新、开源情况
         res.addProperty("cid", cid.toString())

@@ -1,5 +1,7 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module
 
+import net.mamoe.mirai.console.permission.PermissionId
+
 object ModuleManager {
 
     private var ModulePool = emptyList<Module>().toMutableList()
@@ -16,23 +18,22 @@ object ModuleManager {
      * @since SakuraOcean V1
      */
     fun regModule(module: Module){
-        ModulePool.add(module)
+        if(module.reg()){
+            module.open()
+            ModulePool.add(module)
+        }
     }
 
-    /**
-     *
-     * # | 模块相关
-     *
-     * 启动所有已注册的模块
-     *
-     * **注意：这并不能启动默认关闭或正在关闭状态的模块**
-     *
-     * @author Mu_Cloud
-     * @since SakuraOcean V1
-     *
-     */
-    fun startALLModule(){
+    fun startModule(module: Module){
+        if(!module.isOpen()){
+            module.open()
+        }
+    }
 
+    object Permission: net.mamoe.mirai.console.permission.Permission{
+        override val description: String = "当前插件所有模块的使用权"
+        override val id: PermissionId = PermissionId("xymumubot","admin")
+        override val parent: net.mamoe.mirai.console.permission.Permission = this
     }
 
 }

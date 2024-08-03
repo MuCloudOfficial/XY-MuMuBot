@@ -1,15 +1,17 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module.mcmod
 
 data class ModInfo(
-    private val classID: Long,
-    private val modState: Pair<String, String>,
-    private val modName: String,
-    private val platformsAndVersions: Map<String, List<String>>,
-    private val engid: String,
-    private val authors: List<String>,
-    private val dependencies: List<ModInfo>,
-    private val downloadLink: List<ModDownloadLinkInfo>,
+    // 主ID | 在 MCMOD 上的 ID
+    private val classID: Long
 ) {
+
+    private lateinit var modState: Pair<String, String>
+    private lateinit var modName: String
+    private lateinit var platformsAndVersions: Map<String, List<String>>
+    private lateinit var engid: String
+    private lateinit var authors: List<String>
+    private lateinit var dependencies: List<ModInfo>
+    private lateinit var downloadLink: List<ModDownloadLinkInfo>
 
     fun getName(): String = modName
 

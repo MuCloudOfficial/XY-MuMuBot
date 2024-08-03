@@ -1,14 +1,30 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module.mcmod
 
 import me.mucloud.miraiplugin.XY.MuMuBot.module.Module
-import net.mamoe.mirai.contact.UserOrBot
+import me.mucloud.miraiplugin.XY.MuMuBot.module.ModuleManager
+import net.mamoe.mirai.console.permission.PermissionId
+import net.mamoe.mirai.contact.User
 
-object Searcher: Module{
+object Searcher: Module {
 
     private val POOL = emptyList<SearchThread>().toMutableList()
 
     override var open: Boolean = false
     override val info: String = ""
+
+    init{ ModuleManager.regModule(this) }
+
+    override fun reg(): Boolean {
+        return true
+    }
+
+    override fun open() {
+        super.open()
+    }
+
+    override fun close() {
+        super.close()
+    }
 
     /**
      *
@@ -17,13 +33,24 @@ object Searcher: Module{
      * @since SakuraOcean V1
      * @author Mu_Cloud
      */
-    fun createSearchThread(target: UserOrBot, pattern: String, page: Int){
+    fun createSearchThread(target: User, pattern: String, page: Int){
 
     }
 
-    @Deprecated("已废弃 | 该模块无设置项", ReplaceWith("TODO()"))
-    override fun saveConfig() = TODO()
+    fun getNextView(target: User){
 
+    }
 
+    fun getPrevView(target: User){
+
+    }
+
+    object
+
+    object Permission: net.mamoe.mirai.console.permission.Permission{
+        override val description: String = "当前模块的使用权"
+        override val id: PermissionId = PermissionId("xymumubot", "modsearcher")
+        override val parent: net.mamoe.mirai.console.permission.Permission = ModuleManager.Permission
+    }
 
 }

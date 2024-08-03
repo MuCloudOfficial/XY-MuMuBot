@@ -5,6 +5,8 @@ interface Module {
     var open: Boolean
     val info: String
 
+    fun reg(): Boolean
+
     fun open(){
         if(isOpen()){
             return
@@ -19,7 +21,5 @@ interface Module {
     }
 
     fun isOpen(): Boolean = open
-
-    fun saveConfig()
 
 }

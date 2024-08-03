@@ -1,4 +1,4 @@
-<h2 align="center"> 番外篇 · 第一弹 </h2>
+<h2 align="center"> 番外 I · 第一弹 </h2>
 <h3 align="center"> XY-MuMuBot | 基于 MIRAI CONSOLE 的机器人插件 </h3>
 
 <div align="center">

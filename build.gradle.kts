@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "me.mucloud"
-version = "0.0.1-SakuraOcean"
+version = "1.0.1-SakuraOcean"
 
 repositories {
     maven("https://maven.aliyun.com/repository/public")
@@ -20,5 +20,5 @@ dependencies {
 }
 
 mirai {
-    jvmTarget = JavaVersion.VERSION_1_8
+    jvmTarget = JavaVersion.VERSION_17
 }

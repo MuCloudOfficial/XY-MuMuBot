@@ -1,23 +1,25 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module.mcmod
 
-import me.mucloud.miraiplugin.XY.MuMuBot.util.WebElement2JSONConverter
+import net.mamoe.mirai.contact.User
 import net.mamoe.mirai.contact.UserOrBot
-import java.net.URL
 
 class SearchThread(
     private val target: UserOrBot,
     private val pattern: String
 ){
 
+    private var total: Int
     private var page: Int
 
     init {
+        total = 0
         page = 1
         sendView()
     }
 
     fun nextPage(){
         page++
+        sendView()
     }
 
     fun prevPage(){
@@ -31,14 +33,20 @@ class SearchThread(
 
     }
 
-    private fun getSearchList(pattern: String, page: Int): List<ModInfo>{
+    private fun getSearchList(pattern: String): List<ModInfo>{
+        return emptyList()
+    }
+
+    private fun getModInfo(cid: Int): ModInfo {
         TODO()
     }
 
-    private fun getModInfo(cid: Int): ModInfo{
-        TODO()
+    fun equals(target: User): Boolean{
+        return target == this.target
     }
 
-
+    override fun hashCode(): Int {
+        return target.hashCode()
+    }
 
 }
