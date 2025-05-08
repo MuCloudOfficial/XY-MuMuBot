@@ -6,18 +6,38 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.net.URL
 
-object WebElement2JSONConverter {
+object MCMODCNInfoFetcher {
 
-    private val SearchSource: String = "https://search.mcmod.cn/s?key={key}&filter=0&page={page}"
-    private val MODINFOSource: String = "https://www.mcmod.cn/class/{cid}.html"
+    private const val SEARCH_SOURCE: String = "https://search.mcmod.cn/s?key={key}&filter=0&page={page}"
+    private const val MODINFO_SOURCE: String = "https://www.mcmod.cn/class/{cid}.html"
 
-    fun getDoc(url: String): Document = Jsoup.parse(URL(url), 2000).also {
+    private fun getDoc(url: String): Document = Jsoup.parse(URL(url), 2000).also {
             it.charset(Charsets.UTF_8)
     }
 
+    fun getModNameByID(cid: Int): String{
+        val doc = getDoc(MODINFO_SOURCE.replace("{cid}", cid.toString()))
+        return doc.select(".common-nav>ul>li").last()!!.text()
+    }
+
+    // 根据CID获取模组相关链接
+    fun parseModLinks2JSON(cid: Int): JsonArray{
+        val doc = getDoc(MODINFO_SOURCE.replace("{cid}", cid.toString()))
+        return JsonArray().also{ root ->
+            doc.select(".common-link-icon-frame>li").forEach{ rawLink ->
+                root.add(JsonObject().also { link ->
+                    link.addProperty("title", rawLink.child(1).text())
+                    link.addProperty("desc", rawLink.child(0).attr("data-original-title"))
+                    link.addProperty("link", rawLink.child(0).attr("href"))
+                })
+            }
+        }
+    }
+
+    // 根据关键词获取相关模组列表
     fun parseModInfoList2JSON(key: String, page: Int): JsonArray{
         val res = JsonArray()
-        val doc = getDoc(SearchSource.replace("{key}",key).replace("{page}", page.toString()))
+        val doc = getDoc(SEARCH_SOURCE.replace("{key}",key).replace("{page}", page.toString()))
 
         doc.getElementsByClass("head").forEach{ e ->
             if(!e.getElementsByClass("class-category").isEmpty()){
@@ -41,29 +61,28 @@ object WebElement2JSONConverter {
         return res
     }
 
+    // 根据CID获取模组信息
     fun parseModInfo2JSON(cid: Int): JsonObject{
         val res = JsonObject()
-        val doc = getDoc(MODINFOSource.replace("{cid}", cid.toString()))
+        val doc = getDoc(MODINFO_SOURCE.replace("{cid}", cid.toString()))
 
         // 定位大致元素块位置
         val tag = doc.getElementsByClass("common-class-category")[0]
         val title = doc.getElementsByClass("class-title")[0]
         val info = doc.getElementsByClass("class-info-left")[0].select("ul")[0].children()
-        val dep = if (doc.getElementsByClass("class-relation-list").isEmpty()) {
-            doc.empty()
-        }else{
-            doc.getElementsByClass("class-relation-list")
-        }
+        val dep = doc.getElementsByClass("class-relation-list").let { if(it.isEmpty()) null else it[0].children() }
 
         // 获取标题及更新、开源情况
         res.addProperty("cid", cid.toString())
         res.addProperty("shortName", title.getElementsByClass("short-name").text())
         res.addProperty("name", title.getElementsByTag("h3").text())
         res.addProperty("engName", title.getElementsByTag("h4").text())
-        res.addProperty("status", title.child(0).child(0).text())
-        res.addProperty("source", title.child(0).child(1).text())
 
-        // 获取标签: 标签
+        // 两个标签可能不会在网页上显示，不显示的则置为 Unknown
+        res.addProperty("status", if(title.child(0).childrenSize() != 0) title.child(0).child(0).text() else title.child(0).text())
+        res.addProperty("source", if(title.child(0).childrenSize() != 0) title.child(0).child(1).text() else "Unknown")
+
+        // 获取标签: 标签, 子标签还有一堆小标签（怎么这么多标签？）
         // TODO("已经支持多重主标签，但实际网页上是否存在该结构还有待查验")
         res.add("tag", JsonObject().also { obj ->
             val main = JsonArray()
@@ -82,13 +101,14 @@ object WebElement2JSONConverter {
             obj.add("main", main);obj.add("normal", normal);obj.add("flags", flag)
         })
 
-        // 获取详细信息
+        // 获取支持平台信息
         res.add("platform", JsonArray().also { ja ->
             info[0].children().forEach{
                 ja.add(it.text())
             }
         })
 
+        // 获取兼容的模组加载器和MC版本
         res.add("modded", JsonObject().also { jo ->
             val platform = emptyList<String>().toMutableList().also{ ja ->
                 info[1].children().forEach {
@@ -126,11 +146,13 @@ object WebElement2JSONConverter {
 
         })
 
+        // 获取改模组是否在服务器/客户端上运行
         res.add("env", JsonObject().also {
             it.addProperty("client", info[2].text().split(" ")[1].dropLast(1))
             it.addProperty("server", info[2].text().split(" ")[2])
         })
 
+        // 获取 MCMOD 社区关于该模组的编辑信息
         res.addProperty("edits", info[4].text().split(" ")[1].dropLast(1))
         res.addProperty("createTime", info[3].attr("data-original-title"))
         res.addProperty("lastModifyTime", info[5].attr("data-original-title"))
@@ -146,8 +168,25 @@ object WebElement2JSONConverter {
             }
         })
 
-        res.add("relations", JsonObject().also {
-
+        // 获取该模组的依赖关系
+        res.add("relations", JsonObject().also { relation ->
+            dep?.drop(1)?.forEach{ e ->
+                val set = e.getElementsByTag("legend").text()
+                relation.add(set, JsonObject().also{ field ->
+                    e.children().drop(1).forEach { sub ->
+                        // 根据最后一个class名获取该子分组关系类别
+                        val type = when(sub.selectFirst("span>i")!!.classNames().last()){
+                            "fa-sitemap" -> "lib"
+                            "fa-vector-square" -> "dep"
+                            "fa-bezier-curve" -> "com"
+                            else -> "Unknown"
+                        }
+                        field.add(type, JsonArray().also { mod ->
+                            sub.select("ul>li>a").forEach { mod.add(it.attr("href").split("/").last().split(".")[0]) }
+                        })
+                    }
+                })
+            }
         })
 
         return res

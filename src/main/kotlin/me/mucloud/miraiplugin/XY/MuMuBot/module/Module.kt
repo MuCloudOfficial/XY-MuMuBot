@@ -1,25 +1,34 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module
 
-interface Module {
+import me.mucloud.miraiplugin.XY.MuMuBot.Main
 
-    var open: Boolean
-    val info: String
+interface IModule{
+    fun open()
+    fun close()
+    fun whenOpen()
+    fun whenClose()
+    fun isOpen(): Boolean
+}
 
-    fun reg(): Boolean
+abstract class Module(
+    val name: String,
+    val desc: String,
+): IModule{
 
-    fun open(){
-        if(isOpen()){
-            return
-        }
-        open = true
+    init{
+        ModuleManager.regModule(this)
     }
 
-    fun close(){
-        if(isOpen()){
-            open = false
-        }
+    private var isOpen: Boolean = false
+
+    final override fun open(){
+        if(!isOpen){ Main.logger.info("模块 $name 正在启动"); whenOpen(); isOpen = true; Main.logger.info("模块 $name 已启动")}
     }
 
-    fun isOpen(): Boolean = open
+    final override fun close(){
+        if(isOpen){ Main.logger.info("模块 $name 正在关闭"); whenClose(); isOpen = false; Main.logger.info("模块 $name 已关闭") }
+    }
+
+    final override fun isOpen(): Boolean = isOpen
 
 }

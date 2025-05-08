@@ -1,12 +1,18 @@
 package me.mucloud.miraiplugin.XY.MuMuBot.module.mcmod
 
-import net.mamoe.mirai.contact.User
 import net.mamoe.mirai.contact.UserOrBot
+import java.util.*
+import kotlin.concurrent.schedule
 
 class SearchThread(
     private val target: UserOrBot,
-    private val pattern: String
+    private val pattern: String,
+    private val interval: Int,
 ){
+
+    private val tsk = Timer().schedule(interval * 1000L, 0){
+
+    }
 
     private var total: Int
     private var page: Int
@@ -14,39 +20,6 @@ class SearchThread(
     init {
         total = 0
         page = 1
-        sendView()
-    }
-
-    fun nextPage(){
-        page++
-        sendView()
-    }
-
-    fun prevPage(){
-        if(page != 0) {
-            page--
-            sendView()
-        }
-    }
-
-    private fun sendView(){
-
-    }
-
-    private fun getSearchList(pattern: String): List<ModInfo>{
-        return emptyList()
-    }
-
-    private fun getModInfo(cid: Int): ModInfo {
-        TODO()
-    }
-
-    fun equals(target: User): Boolean{
-        return target == this.target
-    }
-
-    override fun hashCode(): Int {
-        return target.hashCode()
     }
 
 }

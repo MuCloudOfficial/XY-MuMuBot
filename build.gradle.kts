@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     val kotlinVersion = "1.9.22"
     kotlin("jvm") version kotlinVersion
@@ -17,6 +19,11 @@ repositories {
 dependencies {
     implementation("org.jsoup:jsoup:1.17.2")
     implementation("com.google.code.gson:gson:2.10.1")
+    testImplementation(kotlin("test"))
+}
+
+kotlin{
+    compilerOptions.jvmTarget.set(JvmTarget.JVM_17)
 }
 
 mirai {
